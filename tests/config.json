@@ -1,0 +1,12 @@
+{
+  "Version": "17.0.0",
+  "Name": "File Uploader",
+  "RequestMethod": "GET",
+  "RequestURL": "https://dummyjson.com/c/07c2-d564-4ea0-9f8d/",
+  "Headers": {
+    "authorization": "authorization"
+  },
+  "URL": "{json:files[0].url}",
+  "Body": "MultipartFormData",
+  "FileFormName": "file"
+}

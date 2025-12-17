@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block site_meta %} {{ super() }} {% set path = '/sharex-cli' %}
+
+<meta name="theme-color" content="#0B0C0F" />
+
+<link rel="icon" type="image/svg" sizes="any" href="{{ path }}/assets/images/logo.svg" />
+<link rel="icon" type="image/png" href="{{ path }}/assets/images/logo.png" />
+<link rel="apple-touch-icon" href="{{ path }}/assets/images/logo.png" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ShareX Command Line Interface Uploader" />
+<meta property="og:title" content="ShareX CLI" />
+<meta
+  property="og:description"
+  content="Command Line Interface to Upload Files to a ShareX Server using a ShareX Custom Uploader (.sxcu) configuration file."
+/>
+<meta property="og:image" content="{{ path }}/assets/images/logo.png" />
+<meta property="og:image:alt" content="ShareX CLI" />
+
+<meta property="twitter:card" content="summary" />
+<meta
+  property="twitter:site"
+  content="Command Line Interface to Upload Files to a ShareX Server using a ShareX Custom Uploader (.sxcu) configuration file."
+/>
+<meta property="twitter:title" content="ShareX CLI" />
+<meta
+  property="twitter:description"
+  content="Command Line Interface to Upload Files to a ShareX Server using a ShareX Custom Uploader (.sxcu) configuration file."
+/>
+<meta property="twitter:image" content="{{ path }}/assets/images/logo.png" />
+<meta property="twitter:image:alt" content="ShareX CLI" />
+
+<meta name="darkreader-lock" />
+
+{% endblock %}

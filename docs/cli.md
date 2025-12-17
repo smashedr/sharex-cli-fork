@@ -1,0 +1,263 @@
+---
+icon: lucide/square-terminal
+---
+
+# :lucide-square-terminal: Command Line Interface
+
+[![ShareX CLI](assets/images/logo.svg){ align=right width=96 }](https://github.com/cssnr/sharex-cli?tab=readme-ov-file#readme)
+
+With the CLI you can easily upload any files or folders with globs or as an archive.
+
+To get started see the [Setup](#setup) and [Uploading](#uploading) section.
+
+To use run the `sharex` command.
+
+```shell
+sharex [OPTIONS] [FILES]...  # (1)!
+```
+
+1. :lucide-lightbulb: Tip: Save your options with [Environment](#environment) variables.
+
+<!-- 1 -->
+
+- [Install](#install)
+- [Setup](#setup)
+- [Uploading](#uploading)
+- [Environment](#environment)
+
+## Install
+
+From PyPI: <https://pypi.org/p/sharex-cli>
+
+=== "pip"
+
+    ```shell
+    pip install sharex-cli
+    ```
+
+=== "uv"
+
+    ```shell
+    uv pip install sharex-cli
+    ```
+
+From GitHub.
+
+=== "pip"
+
+    ```shell
+    pip install git+https://github.com/cssnr/sharex-cli.git
+    ```
+
+=== "uv"
+
+    ```shell
+    uv pip install git+https://github.com/cssnr/sharex-cli.git
+    ```
+
+From source.
+
+=== "pip"
+
+    ```shell
+    git clone https://github.com/cssnr/sharex-cli.git
+    pip install sharex-cli
+    ```
+
+=== "uv"
+
+    ```shell
+    git clone https://github.com/cssnr/sharex-cli.git
+    uv pip install install sharex-cli
+    ```
+
+Uninstall.
+
+=== "pip"
+
+    ```shell
+    pip uninstall sharex-cli
+    ```
+
+=== "uv"
+
+    ```shell
+    uv pip uninstall sharex-cli
+    ```
+
+## Setup
+
+To configure you need your server's ShareX Custom Uploader `*.sxcu` configuration JSON.
+
+The app will automatically enter configuration on the first run.
+
+```shell
+sharex
+```
+
+This allows you to enter a file path, or open a text editor to enter the contents.
+
+To re-configure pass the `--config` flag.
+
+```shell
+sharex --config
+```
+
+You can also pass the path to the config file.
+
+```shell
+sharex --config path/to/config.sxcu
+```
+
+You can then press Enter to open a text editor or paste the config path.
+
+```text
+$ sharex
+
+Download your servers ShareX Custom Uploader (*.sxcu) configuration, then:
+
+ - Type or Paste the config file path.
+ - Press Enter to open a text editor.
+ - Or press Ctrl+C to abort.
+
+File Path:
+```
+
+Once complete you can start [uploading](#uploading) files.
+
+## Uploading
+
+Upload a file.
+
+```shell
+sharex file.txt
+```
+
+Upload a file with a custom filename.
+
+```shell
+sharex file.txt -n other.txt
+```
+
+Upload multiple files.
+
+```shell
+sharex file1.txt file2.txt
+```
+
+Upload files in a directory (default glob: `*`).
+
+```shell
+sharex dir1
+```
+
+Upload files in a directory matching a glob.
+
+```shell
+sharex dir1 -g '*.md'
+```
+
+Upload files in a directory recursively (use any recursive glob).
+
+```shell
+sharex dir1 -g '**'
+```
+
+Create an archive of a directory to upload.
+
+```shell
+sharex dir1 -a
+```
+
+Don't launch the file in the browser.
+
+```shell
+sharex file.txt -nl  # (1)!
+```
+
+1. :lucide-lightbulb: Tip: Save your options with [Environment](#environment) variables.
+
+Create text file from standard input.
+
+```shell
+echo "test text" | sharex -n test.txt
+```
+
+Create text file from clipboard or text.
+
+```shell
+sharex
+# Paste or type contents here followed by a newline
+# Then press Ctrl+D (Windows press Ctrl+Z then Enter)
+```
+
+## Environment
+
+Many options support setting environment variable defaults.
+
+| Variable&nbsp;Name | Default | Description           |
+| :----------------- | :-----: | :-------------------- |
+| `SHAREX_COPY`      |    1    | Copy URL to Clipboard |
+| `SHAREX_LAUNCH`    |    1    | Launch URL in Browser |
+| `SHAREX_YES`       |    0    | Answer YES to Prompts |
+| `SHAREX_VERBOSE`   |    0    | Verbose Output        |
+| `SHAREX_CONFIG`    |    -    | JSON Config Data      |
+
+Allowed boolean values, case-insensitive.
+
+```plain
+0, 1, f, false, n, no, off, on, t, true, y, yes
+```
+
+You can set variables on the command line.
+
+=== "Unix"
+
+    ```shell
+    export SHAREX_VERBOSE=1
+    ```
+
+=== "Windows"
+
+    ```pwsh
+    $env:SHAREX_VERBOSE=1
+    ```
+
+&nbsp;
+
+To see the help use the `--help` flag.
+
+```text
+$ sharex --help
+
+ Usage: sharex [OPTIONS] [FILES]...
+
+ Files: A File, Multiple Files or a Directory.
+
+┌─ Arguments ──────────────────────────────────────────────────────────────────────┐
+│   files      [FILES]...  Files or Directory...                                   │
+└──────────────────────────────────────────────────────────────────────────────────┘
+┌─ Options ────────────────────────────────────────────────────────────────────────┐
+│ --name     -n                    File Name (sent with upload).                   │
+│ --glob     -g                    Directory Files Glob (use ** to recurse).       │
+│                                  [default: *]                                    │
+│ --archive  -a                    Directory Create Archive (no glob support).     │
+│ --yes      -y                    Answer YES to Prompts. [env var: SHAREX_YES]    │
+│ --copy     -c  --no-copy    -nc  Copy URL to Clipboard. [env var: SHAREX_COPY]   │
+│                                  [default: copy]                                 │
+│ --launch   -l  --no-launch  -nl  Launch URL in Browser. [env var: SHAREX_LAUNCH] │
+│                                  [default: launch]                               │
+│ --verbose  -v                    Verbose Output. [env var: SHAREX_VERBOSE]       │
+│ --config   -C                    Update Configuration.                           │
+│ --version  -V                    Show Installed Version.                         │
+│ --help     -h                    Show this message and exit.                     │
+└──────────────────────────────────────────────────────────────────────────────────┘
+```
+
+!!! tip "In the terminal output is scaled and displays properly."
+
+&nbsp;
+
+!!! question
+
+    If you need **help** getting started or run into any issues, [support](support.md) is available!
